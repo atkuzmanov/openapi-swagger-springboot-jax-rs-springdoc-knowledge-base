@@ -92,6 +92,8 @@ They were for research and development purposes, so they are not fully working.
 
 ### Springdoc working example high level diagram
 
+![openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams-2022-08-31-1109](./openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams/openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams-2022-08-31-1109.png)
+
 ![openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams-2022-08-31-1109](./openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams/openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams-2022-08-31-1109-inverse.png)
 
 ---
