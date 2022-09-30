@@ -1,0 +1,77 @@
+
+server:
+  port: 8080
+  max-http-header-size: 32768
+
+spring:
+  application:
+    name: example-application
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: true
+  jersey:
+    application-path: /api
+  jmx:
+    enabled: true
+#  mvc:
+#    pathmatch:
+#      matching-strategy: ant_path_matcher
+
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+feign:
+  compression:
+    request:
+      enabled: false
+    response:
+      enabled: true
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: cloud
+  cloud:
+    config:
+      enabled: true
+      uri: ${CONFIG_SERVER_URI:http://localhost:8888/}
+      failFast: true
+      retry:
+        max-attempts: 60
+      label: develop
+
+eureka:
+  client:
+    enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: security
+
+---
+spring:
+  config:
+    activate:
+      on-profile: ssl
+
+server:
+  port: 8123
+  ssl:
+    enabled: true
+    key-store: ${SSL_KEYSTORE_FILE}
+    key-store-password: ${SSL_KEYSTORE_PASSWORD}
+
+eureka:
+  instance:
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    secure-port: 8123

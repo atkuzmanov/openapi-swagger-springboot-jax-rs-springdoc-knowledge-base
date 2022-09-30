@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.maven</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1.4.0</version>
+    </parent>
+
+    <groupId>com.example</groupId>
+    <artifactId>example</artifactId>
+    <version>1.17.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>17</java.version>
+        <example-dependencies.version>1.19.0</example-dependencies.version>
+        <spring-boot.version>2.5.4</spring-boot.version>
+        <resource.delimiter>@</resource.delimiter> <!-- Delimiter that doesn't clash with Spring ${} placeholders. -->
+        <swagger-request-validator.version>2.27.2</swagger-request-validator.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <!-- The commented out code below in the "spring-boot-maven-plugin" is needed for the generation of static
+            OpenAPI Swagger spec files. It should be uncommented only for local execution as it breaks our builds.
+            Use it to locally generate the latest version of our static OpenAPI Swagger spec files after
+            changes to our APIs.
+            It breaks our builds as for it to work it requires the application to start up with
+            "pre-integration-test" and "post-integration-test" executions of the "spring-boot-maven-plugin"
+            but for now this fails in our pipline.
+            TODO: To find a way for this code to stay and not break our builds. -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <executable>true</executable>
+                    <!--                    <jvmArguments>-Dspring.application.admin.enabled=true</jvmArguments>-->
+                </configuration>
+                <executions>
+                    <!--                    <execution>-->
+                    <!--                        <id>pre-integration-test</id>-->
+                    <!--                        <goals>-->
+                    <!--                            <goal>start</goal>-->
+                    <!--                        </goals>-->
+                    <!--                    </execution>-->
+                    <!--                    <execution>-->
+                    <!--                        <id>post-integration-test</id>-->
+                    <!--                        <goals>-->
+                    <!--                            <goal>stop</goal>-->
+                    <!--                        </goals>-->
+                    <!--                    </execution>-->
+                    <execution>
+                        <id>repackage</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- The commented out code below in the "springdoc-openapi-maven-plugin" is needed for the generation of static
+            OpenAPI Swagger spec files.
+            It is connected to the commented out code in the "spring-boot-maven-plugin".
+            It should be uncommented only for local execution as it breaks our builds.
+            Use it to locally generate the latest version of our static OpenAPI Swagger spec files after
+            changes to our APIs.
+            It breaks our builds as for it to work it requires the application to start up with
+            "pre-integration-test" and "post-integration-test" executions of the "spring-boot-maven-plugin"
+            but for now this fails in our pipline.
+            TODO: To find a way for this code to stay and not break our builds. -->
+            <plugin>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-maven-plugin</artifactId>
+                <version>1.4</version>
+                <!--                <executions>-->
+                <!--                    <execution>-->
+                <!--                        <id>integration-test</id>-->
+                <!--                        <phase>integration-test</phase>-->
+                <!--                        <goals>-->
+                <!--                            <goal>generate</goal>-->
+                <!--                        </goals>-->
+                <!--                        <configuration>-->
+                <!--                            <apiDocsUrl>http://localhost:8080/api/openapi.json</apiDocsUrl>-->
+                <!--                            <outputFileName>${project.artifactId}-inbound-openapi-swagger-spec.json</outputFileName>-->
+                <!--                            <outputDir>./src/main/resources/static/swagger-openapi-specs/inbound</outputDir>-->
+                <!--                            <skip>false</skip>-->
+                <!--                        </configuration>-->
+                <!--                    </execution>-->
+                <!--                    <execution>-->
+                <!--                        <id>integration-test-yaml</id>-->
+                <!--                        <phase>integration-test</phase>-->
+                <!--                        <goals>-->
+                <!--                            <goal>generate</goal>-->
+                <!--                        </goals>-->
+                <!--                        <configuration>-->
+                <!--                            <apiDocsUrl>http://localhost:8080/api/openapi.yaml</apiDocsUrl>-->
+                <!--                            <outputFileName>${project.artifactId}-inbound-openapi-swagger-spec.yaml</outputFileName>-->
+                <!--                            <outputDir>./src/main/resources/static/swagger-openapi-specs/inbound</outputDir>-->
+                <!--                            <skip>false</skip>-->
+                <!--                        </configuration>-->
+                <!--                    </execution>-->
+                <!--                </executions>-->
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.example.bom</groupId>
+                <artifactId>example-dependencies</artifactId>
+                <version>${example-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-properties-migrator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jersey</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+        </dependency>
+        <!-- Resolve guava version conflict between query-dsl and docker-compose rule. -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-jaxrs</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.ws.rs</groupId>
+                    <artifactId>jsr311-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>5.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>0.45</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>swagger-ui</artifactId>
+            <version>4.11.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.example.example.api-spec</groupId>
+            <artifactId>example-property-directory-rest-api-spec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>example.example.api-spec</groupId>
+            <artifactId>user-profile-service-rest-api-spec</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.palantir.docker.compose</groupId>
+            <artifactId>docker-compose-junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>com.splunk.logging</groupId>
+            <artifactId>splunk-library-javalogging</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- START: OpenAPI Swagger dependencies -->
+        <dependency>
+            <groupId>com.atlassian.oai</groupId>
+            <artifactId>swagger-request-validator-core</artifactId>
+            <version>${swagger-request-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oai</groupId>
+            <artifactId>swagger-request-validator-pact</artifactId>
+            <version>${swagger-request-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oai</groupId>
+            <artifactId>swagger-request-validator-wiremock</artifactId>
+            <version>${swagger-request-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oai</groupId>
+            <artifactId>swagger-request-validator-restassured</artifactId>
+            <version>${swagger-request-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oai</groupId>
+            <artifactId>swagger-request-validator-mockmvc</artifactId>
+            <version>${swagger-request-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oai</groupId>
+            <artifactId>swagger-request-validator-spring-web-client</artifactId>
+            <version>${swagger-request-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.oai</groupId>
+            <artifactId>swagger-request-validator-springmvc</artifactId>
+            <version>${swagger-request-validator.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-consumer-junit_2.12</artifactId>
+            <scope>test</scope>
+            <version>3.6.15</version>
+        </dependency>
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-consumer_2.12</artifactId>
+            <version>3.6.15</version>
+        </dependency>
+        <dependency>
+            <groupId>au.com.dius</groupId>
+            <artifactId>pact-jvm-provider_2.12</artifactId>
+            <version>3.6.15</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-jaxrs2</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-jaxrs2-servlet-initializer-v2</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.test-framework</groupId>
+            <artifactId>jersey-test-framework-core</artifactId>
+            <version>2.33</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- END: OpenAPI Swagger dependencies -->
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>docker</id>
+            <properties>
+                <docker.image.repository>example/${project.artifactId}</docker.image.repository>
+                <!--suppress UnresolvedMavenProperty -->
+                <docker.image.tag>${project.version}-${git.total.commit.count}-${git.commit.id.abbrev}
+                </docker.image.tag>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+</project>

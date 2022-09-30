@@ -1,0 +1,11 @@
+resourcePackages:
+  - com.example.example.prop.dir.api
+prettyPrint: true
+cacheTTL: 0
+openAPI:
+  info:
+    version: '1.0'
+    title: example-property-directory openapi spec swagger
+    description: 'example-property-directory openapi spec swagger'
+  servers:
+    - url: http://localhost:8120/api

@@ -1,0 +1,22 @@
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    urls[0]:
+      name: 'example-property-dir Inbound OpenAPI Swagger spec JSON'
+      url: '/api/openapi.json'
+    urls[1]:
+      name: 'example-property-dir Inbound OpenAPI Swagger spec YAML'
+      url: '/api/openapi.yaml'
+    urls[2]:
+      name: 'GIS Outbound OpenAPI Swagger spec JSON'
+      url: '/swagger-openapi-specs/example-property-dir-outbound/KL_Gis.ws.inbound.geodata.v1.json'
+    urls[3]:
+      name: 'GIS Outbound OpenAPI Swagger spec YAML'
+      url: '/swagger-openapi-specs/example-property-dir-outbound/KL_Gis.ws.inbound.geodata.v1.yaml'
+    urls[4]:
+      # This default url is still needed, so we can access: /v3/api-docs/swagger-config
+      name: 'default'
+      url: '/v3/api-docs/'
+    urls-primary-name: 'example-property-dir Inbound OpenAPI Swagger spec JSON'
+    path: '/swagger-ui'

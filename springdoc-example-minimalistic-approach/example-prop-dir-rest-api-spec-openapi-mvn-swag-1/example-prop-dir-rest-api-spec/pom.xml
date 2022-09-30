@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.example.maven</groupId>
+        <artifactId>parent-pom</artifactId>
+        <version>1.2.0</version>
+    </parent>
+
+    <groupId>com.example.example.api-spec</groupId>
+    <artifactId>example-property-directory-rest-api-spec</artifactId>
+    <version>1.14.0-SNAPSHOT</version>
+
+    <properties>
+        <sonar.projectKey>xx-com.example:${project.artifactId}</sonar.projectKey>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.openapitools.swagger</groupId>
+                <artifactId>swagger-maven-plugin</artifactId>
+                <version>2.1.6</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <attachSwaggerArtifact>true</attachSwaggerArtifact>
+                    <resourcePackages>
+                        <resourcePackage>com.example.example.prop.dir.api</resourcePackage>
+                        <resourcePackage>com.example.example.prop.dir.domain</resourcePackage>
+                        <resourcePackage>com.example.example.prop.dir.event</resourcePackage>
+                    </resourcePackages>
+                    <outputDirectory>${project.basedir}/target/generated-sources/src/main/resources/static
+                    </outputDirectory>
+                    <outputFilename>${project.artifactId}-openapi</outputFilename>
+                    <outputFormats>JSON,YAML</outputFormats>
+                    <prettyPrint>true</prettyPrint>
+                    <swaggerConfig>
+                        <info>
+                            <title>example Property Directory</title>
+                            <description>example Property Directory OpenAPI Swagger Spec</description>
+                            <version>${version}</version>
+                        </info>
+                    </swaggerConfig>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/target/generated-sources/src/main/resources
+                                    </directory>
+                                    <filtering>false</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.5.15</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
