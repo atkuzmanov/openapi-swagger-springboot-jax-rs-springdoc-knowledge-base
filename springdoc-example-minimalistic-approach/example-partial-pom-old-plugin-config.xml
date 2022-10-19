@@ -1,0 +1,60 @@
+
+<plugin>
+    <groupId>com.github.kongchen</groupId>
+    <artifactId>swagger-maven-plugin</artifactId>
+    <version>3.1.8</version>
+    <executions>
+        <execution>
+            <phase>compile</phase>
+            <goals>
+                <goal>generate</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <apiSources>
+            <apiSource>
+                <springmvc>false</springmvc>
+                <locations>schwarz.ecm.userprofile.service.api</locations>
+                <schemes>http,https</schemes>
+                <basePath>/api</basePath>
+                <info>
+                    <title>User Profile Service</title>
+                    <version>v1</version>
+                </info>
+                <swaggerDirectory>${project.basedir}/target/generated-sources/src/main/resources/static</swaggerDirectory>
+                <outputFormats>json</outputFormats>
+            </apiSource>
+        </apiSources>
+    </configuration>
+    <dependencies>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+    </dependencies>
+</plugin>
+<plugin>
+<artifactId>maven-resources-plugin</artifactId>
+<version>3.0.2</version>
+<executions>
+    <execution>
+        <id>copy-resources</id>
+        <phase>process-classes</phase>
+        <goals>
+            <goal>copy-resources</goal>
+        </goals>
+        <configuration>
+            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+            <resources>
+                <resource>
+                    <directory>${project.basedir}/target/generated-sources/src/main/resources
+                    </directory>
+                    <filtering>false</filtering>
+                </resource>
+            </resources>
+        </configuration>
+    </execution>
+</executions>
+</plugin>
