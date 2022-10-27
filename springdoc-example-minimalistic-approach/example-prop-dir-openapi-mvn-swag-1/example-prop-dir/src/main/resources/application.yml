@@ -4,7 +4,7 @@ springdoc:
     disable-swagger-default-url: true
     urls[0]:
       name: 'example-property-dir OpenAPI Swagger spec YAML'
-      url: example-property-directory-rest-api-spec-openapi.yaml
+      url: example-property-directory-openapi.yaml
     urls[1]:
       name: 'GIS Outbound OpenAPI Swagger spec YAML'
       url: 'KL_Gis.ws.inbound.geodata.v1.yaml'

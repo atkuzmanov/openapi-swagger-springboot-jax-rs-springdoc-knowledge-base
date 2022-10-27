@@ -1,0 +1,5 @@
+
+springdoc:
+  swagger-ui:
+    url: /example-property-directory-openapi.json
+    configUrl: /v3/api-docs/swagger-config

@@ -10,7 +10,7 @@
 
 ---
 
-## Simpler solution for only generating v3 OpenAPI Swagger specs
+## Simpler solution for only generating v3 OpenAPI Swagger specs - minimalistic approach
 
 ![openapi-swagger-springboot-jax-rs-springdoc-diagrams-2022-08-31-1109-1](./openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams/diagrams-2022-08-31-1109-1/openapi-swagger-springboot-jax-rs-springdoc-diagrams-2022-08-31-1109-1.png)
 
