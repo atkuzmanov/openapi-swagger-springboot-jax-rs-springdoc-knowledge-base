@@ -10,6 +10,16 @@
 
 ---
 
+## Simpler solution for only generating v3 OpenAPI Swagger specs
+
+![openapi-swagger-springboot-jax-rs-springdoc-diagrams-2022-08-31-1109-1](./openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams/diagrams-2022-08-31-1109-1/openapi-swagger-springboot-jax-rs-springdoc-diagrams-2022-08-31-1109-1.png)
+
+![openapi-swagger-springboot-jax-rs-springdoc-diagrams-2022-08-31-1109-1 dark](./openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams/diagrams-2022-08-31-1109-1/openapi-swagger-springboot-jax-rs-springdoc-diagrams-2022-08-31-1109-1%20dark.png)
+
+---
+
+## More complex solution with more features
+
 ## Files and Directories
 
 - ***springdoc-example*** - SpringBoot + JAX-RS + Springdoc working example (code-to-spec generation)
