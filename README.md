@@ -133,3 +133,9 @@ openapi-generator validate -i ./src/main/resources/static/swagger-openapi-specs/
 ```
 
 ---
+
+## Links
+
+<https://excalidraw.com/>
+
+---
