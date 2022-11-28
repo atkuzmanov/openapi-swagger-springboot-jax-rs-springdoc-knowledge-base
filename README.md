@@ -108,6 +108,40 @@ They were for research and development purposes, so they are not fully working.
 
 ---
 
+## OpenAPI Swagger - Quarkus
+
+### Diagram
+
+![openapi-swagger-excalidraw-diagrams-2022-08-31-1109](./openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams/openapi-swagger-quarkus-excalidraw-diagrams-2022-11-17-1400.png)
+
+![openapi-swagger-excalidraw-diagrams-2022-08-31-1109](./openapi-swagger-springboot-jax-rs-springdoc-excalidraw-diagrams/openapi-swagger-quarkus-excalidraw-diagrams-2022-11-17-1400-dark.png)
+
+### Documentation
+
+<https://quarkus.io/guides/openapi-swaggerui>
+
+### Example URLs
+
+#### Environments:
+
+<https://ENV/example-quarkus-service/q/swagger-ui/>
+
+<https://ENV/example-quarkus-service/openapi.yaml>
+
+<https://ENV/example-quarkus-service/openapi.json>
+
+#### Local:
+
+<http://localhost:8080/q/swagger-ui/>
+
+<http://localhost:8080/example-quarkus-service/openapi.yaml>
+
+<http://localhost:8080/openapi.yaml>
+
+<http://localhost:8080/openapi.json>
+
+---
+
 ## OpenAPI Swagger spec-to-code generation
 
 ### OpenAPI-Generator CLI commands
